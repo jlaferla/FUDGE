@@ -86,7 +86,8 @@
 
             // Parse data from the generated URL
             var queryParams = getQueryParams(generatedURL);
-            var responseHTML = "<p><strong>Data received:</strong></p>";
+            var responseHTML = "<p><strong>Generated URL:</strong> " + generatedURL + "</p>";
+            responseHTML += "<p><strong>Data received:</strong></p>";
 
             for (var key in queryParams) {
                 responseHTML += "<p><strong>" + key + ":</strong> " + queryParams[key] + "</p>";
