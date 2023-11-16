@@ -56,9 +56,11 @@
 
         #liveBanner {
             display: none;
-            color: #00ff00;
-            font-size: 18px;
-            margin-top: 10px;
+            background-color: #8013d3;
+            color: #08cebe;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -81,11 +83,11 @@
 
     <br>
 
+    <div id="liveBanner">Merchant is live!</div>
+
     <button type="button" onclick="sendData()">Send</button>
 
     <div id="responseData"></div>
-
-    <div id="liveBanner">Merchant is live!</div>
 
     <script>
         // Function to send data and display response
