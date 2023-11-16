@@ -15,22 +15,39 @@
             color: #4CAF50;
         }
 
-        div {
-            border: 1px solid #ccc;
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
             padding: 10px;
-            margin: 10px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
         }
     </style>
 </head>
 <body>
     <h1>Rate Enquiry Response</h1>
 
-    <div id="responseContainer">
-        <!-- Response content will be inserted here dynamically -->
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="responseTableBody">
+            <!-- Response content will be inserted here dynamically -->
+        </tbody>
+    </table>
 
     <script>
         // Function to parse query parameters from the URL
@@ -51,15 +68,14 @@
         function displayResponse() {
             var queryParams = getQueryParams();
 
-            var responseContainer = document.getElementById("responseContainer");
-            var responseHTML = "<h2>Response Details</h2><ul>";
+            var responseTableBody = document.getElementById("responseTableBody");
+            var responseHTML = "";
 
             for (var key in queryParams) {
-                responseHTML += "<li><strong>" + key + ":</strong> " + queryParams[key] + "</li>";
+                responseHTML += "<tr><td><strong>" + key + ":</strong></td><td>" + queryParams[key] + "</td></tr>";
             }
 
-            responseHTML += "</ul>";
-            responseContainer.innerHTML = responseHTML;
+            responseTableBody.innerHTML = responseHTML;
         }
 
         // Call the displayResponse function on page load
