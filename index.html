@@ -40,6 +40,11 @@
         h1 {
             color: #4CAF50;
         }
+
+        #responseData {
+            margin-top: 20px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +67,8 @@
     <br>
 
     <button type="button" onclick="sendData()">Send</button>
+
+    <div id="responseData"></div>
 
     <script>
         // Function to send data and fetch response
@@ -107,14 +114,14 @@
         function receiveData(responseText) {
             // Parse data from the responseText
             var queryParams = getQueryParams(responseText);
-            var responseHTML = "";
+            var responseHTML = "<p><strong>Data received:</strong></p>";
 
             for (var key in queryParams) {
                 responseHTML += "<p><strong>" + key + ":</strong> " + queryParams[key] + "</p>";
             }
 
             // Display the parsed data on the page
-            document.body.innerHTML += responseHTML;
+            document.getElementById("responseData").innerHTML = responseHTML;
         }
     </script>
 </body>
