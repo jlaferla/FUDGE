@@ -26,7 +26,7 @@
 
         button {
             padding: 10px;
-            background-color: #08cebe;
+            background-color: #ff0023;
             color: white;
             border: none;
             border-radius: 5px;
@@ -34,7 +34,7 @@
         }
 
         button:hover {
-            background-color: #06a895;
+            background-color: #d90020;
         }
 
         h1 {
@@ -44,11 +44,13 @@
         #responseData {
             margin-top: 20px;
             text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         .response-text {
-            color: #8013d3;
-            text-align: center;
+            color: #ff0023;
+            text-align: left;
         }
     </style>
 </head>
@@ -73,7 +75,10 @@
 
     <button type="button" onclick="sendData()">Send</button>
 
-    <div id="responseData" style="margin: 0 auto; max-width: 400px; text-align: center;"></div>
+    <div id="responseData">
+        <p style="color: #ff0023;"><strong>Response:</strong></p>
+        <pre class="response-text"></pre>
+    </div>
 
     <script>
         // Function to send data and display response
@@ -95,7 +100,7 @@
                 var responseData = await response.json();
 
                 // Format and display the JSON data on the page
-                document.getElementById("responseData").innerHTML = "<p style='color: #8013d3;'><strong>Response:</strong></p><pre class='response-text'>" + JSON.stringify(responseData, null, 2) + "</pre>";
+                document.querySelector(".response-text").innerHTML = JSON.stringify(responseData, null, 2);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
