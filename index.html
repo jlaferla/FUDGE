@@ -24,6 +24,19 @@
             box-sizing: border-box;
         }
 
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
         h1 {
             color: #4CAF50;
         }
@@ -45,6 +58,10 @@
     <input type="text" id="baseAmount" name="baseAmount" value="123.45" required>
 
     <!-- Add more fields as needed -->
+
+    <br>
+
+    <button type="button" onclick="sendData()">Send</button>
 
     <script>
         // Variable to store the generated URL
