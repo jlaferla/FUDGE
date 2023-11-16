@@ -24,39 +24,8 @@
             box-sizing: border-box;
         }
 
-        button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
         h1 {
             color: #4CAF50;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 50%;
-            margin: auto;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
         }
     </style>
 </head>
@@ -76,22 +45,6 @@
     <input type="text" id="baseAmount" name="baseAmount" value="123.45" required>
 
     <!-- Add more fields as needed -->
-
-    <br>
-
-    <button type="button" onclick="sendData()">Send</button>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Field</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <tbody id="responseTableBody">
-            <!-- Response content will be inserted here dynamically -->
-        </tbody>
-    </table>
 
     <script>
         // Variable to store the generated URL
@@ -134,15 +87,15 @@
         function receiveData() {
             // Parse data from the generated URL
             var queryParams = getQueryParams(generatedURL);
-            var responseTableBody = document.getElementById("responseTableBody");
             var responseHTML = "";
 
             for (var key in queryParams) {
-                responseHTML += "<tr><td><strong>" + key + ":</strong></td><td>" + queryParams[key] + "</td></tr>";
+                responseHTML += "<p><strong>" + key + ":</strong> " + queryParams[key] + "</p>";
             }
 
-            responseTableBody.innerHTML = responseHTML;
-            
+            // Display the parsed data on the page
+            document.body.innerHTML += responseHTML;
+
             // Redirect to the specified URL after processing the data
             window.location.href = "https://jlaferla.github.io/FUDGE";
         }
