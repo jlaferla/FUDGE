@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rate Enquiry</title>
+    <title style="color: #ff0023;">Rate Enquiry</title>
     <style>
         body {
             font-family: Calibri, sans-serif;
@@ -26,7 +26,7 @@
 
         button {
             padding: 10px;
-            background-color: #4CAF50;
+            background-color: #08cebe;
             color: white;
             border: none;
             border-radius: 5px;
@@ -34,16 +34,20 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #06a895;
         }
 
         h1 {
-            color: #4CAF50;
+            color: #ff0023;
         }
 
         #responseData {
             margin-top: 20px;
             text-align: left;
+        }
+
+        .response-text {
+            color: #8013d3;
         }
     </style>
 </head>
@@ -90,7 +94,7 @@
                 var responseData = await response.json();
 
                 // Format and display the JSON data on the page
-                document.getElementById("responseData").innerHTML = "<p><strong>Data received:</strong></p><pre>" + JSON.stringify(responseData, null, 2) + "</pre>";
+                document.getElementById("responseData").innerHTML = "<p><strong>Response:</strong></p><pre class='response-text'>" + JSON.stringify(responseData, null, 2) + "</pre>";
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
