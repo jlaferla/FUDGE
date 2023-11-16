@@ -71,7 +71,7 @@
     <div id="responseData"></div>
 
     <script>
-        // Function to send data and fetch response
+        // Function to send data and display response
         function sendData() {
             var acquirerId = document.getElementById("acquirerId").value;
             var merchantId = document.getElementById("merchantId").value;
@@ -84,16 +84,16 @@
             // Log the generated URL to the console (you can modify this to perform other actions)
             console.log("Generated URL:", generatedURL);
 
-            // Use AJAX to fetch data from the generated URL
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Parse and display the data
-                    receiveData(xhr.responseText);
-                }
-            };
-            xhr.open("GET", generatedURL, true);
-            xhr.send();
+            // Parse data from the generated URL
+            var queryParams = getQueryParams(generatedURL);
+            var responseHTML = "<p><strong>Data received:</strong></p>";
+
+            for (var key in queryParams) {
+                responseHTML += "<p><strong>" + key + ":</strong> " + queryParams[key] + "</p>";
+            }
+
+            // Display the parsed data on the page
+            document.getElementById("responseData").innerHTML = responseHTML;
         }
 
         // Function to parse query parameters from the URL
@@ -108,20 +108,6 @@
             }
 
             return params;
-        }
-
-        // Function to receive data and update the page
-        function receiveData(responseText) {
-            // Parse data from the responseText
-            var queryParams = getQueryParams(responseText);
-            var responseHTML = "<p><strong>Data received:</strong></p>";
-
-            for (var key in queryParams) {
-                responseHTML += "<p><strong>" + key + ":</strong> " + queryParams[key] + "</p>";
-            }
-
-            // Display the parsed data on the page
-            document.getElementById("responseData").innerHTML = responseHTML;
         }
     </script>
 </body>
