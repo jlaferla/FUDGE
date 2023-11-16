@@ -81,6 +81,18 @@
 
     <button type="button" onclick="sendData()">Send</button>
 
+    <table>
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="responseTableBody">
+            <!-- Response content will be inserted here dynamically -->
+        </tbody>
+    </table>
+
     <script>
         function sendData() {
             var acquirerId = document.getElementById("acquirerId").value;
@@ -125,23 +137,12 @@
                 try {
                     var jsonValue = JSON.parse(queryParams[key]);
 
+                    // Log the parsed JSON response to the console
+                    console.log("Parsed JSON Value:", jsonValue);
+
                     // If it's JSON, create a sub-table for each key
                     responseHTML += "<tr><td><strong>" + key + ":</strong></td><td>";
                     responseHTML += "<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>";
 
                     for (var subKey in jsonValue) {
-                        responseHTML += "<tr><td>" + subKey + "</td><td>" + jsonValue[subKey] + "</td></tr>";
-                    }
-
-                    responseHTML += "</tbody></table></td></tr>";
-                } catch (error) {
-                    // If not JSON, display the key-value pair directly
-                    responseHTML += "<tr><td><strong>" + key + ":</strong></td><td>" + queryParams[key] + "</td></tr>";
-                }
-            }
-
-            responseTableBody.innerHTML = responseHTML;
-        }
-    </script>
-</body>
-</html>
+                        responseHTML +=
