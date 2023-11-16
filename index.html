@@ -64,9 +64,7 @@
     <button type="button" onclick="sendData()">Send</button>
 
     <script>
-        // Variable to store the generated URL
-        var generatedURL;
-
+        // Function to send data and fetch response
         function sendData() {
             var acquirerId = document.getElementById("acquirerId").value;
             var merchantId = document.getElementById("merchantId").value;
@@ -74,16 +72,21 @@
             var baseAmount = document.getElementById("baseAmount").value;
 
             // Store the generated URL in the variable
-            generatedURL = `https://dhsrest.fmsapps.com/dhsv2/acquirers/${acquirerId}/merchants/${merchantId}/dccoffers?bin=${bin}&baseamount=${baseAmount}`;
+            var generatedURL = `https://dhsrest.fmsapps.com/dhsv2/acquirers/${acquirerId}/merchants/${merchantId}/dccoffers?bin=${bin}&baseamount=${baseAmount}`;
 
-            // Log the generated URL to the console (you can modify this to open the URL or perform other actions)
+            // Log the generated URL to the console (you can modify this to perform other actions)
             console.log("Generated URL:", generatedURL);
 
-            // Open the URL in a new tab or window
-            window.open(generatedURL, '_blank');
-
-            // Set a 5-second delay before calling the receiveData function
-            setTimeout(receiveData, 5000);
+            // Use AJAX to fetch data from the generated URL
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Parse and display the data
+                    receiveData(xhr.responseText);
+                }
+            };
+            xhr.open("GET", generatedURL, true);
+            xhr.send();
         }
 
         // Function to parse query parameters from the URL
@@ -100,10 +103,10 @@
             return params;
         }
 
-        // Function to receive data after a delay
-        function receiveData() {
-            // Parse data from the generated URL
-            var queryParams = getQueryParams(generatedURL);
+        // Function to receive data and update the page
+        function receiveData(responseText) {
+            // Parse data from the responseText
+            var queryParams = getQueryParams(responseText);
             var responseHTML = "";
 
             for (var key in queryParams) {
@@ -112,9 +115,6 @@
 
             // Display the parsed data on the page
             document.body.innerHTML += responseHTML;
-
-            // Redirect to the specified URL after processing the data
-            window.location.href = "https://jlaferla.github.io/FUDGE";
         }
     </script>
 </body>
