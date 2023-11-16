@@ -94,28 +94,32 @@
     </table>
 
     <script>
+        // Variable to store the generated URL
+        var generatedURL;
+
         function sendData() {
             var acquirerId = document.getElementById("acquirerId").value;
             var merchantId = document.getElementById("merchantId").value;
             var bin = document.getElementById("bin").value;
             var baseAmount = document.getElementById("baseAmount").value;
 
-            var url = `https://dhsrest.fmsapps.com/dhsv2/acquirers/${acquirerId}/merchants/${merchantId}/dccoffers?bin=${bin}&baseamount=${baseAmount}`;
+            // Store the generated URL in the variable
+            generatedURL = `https://dhsrest.fmsapps.com/dhsv2/acquirers/${acquirerId}/merchants/${merchantId}/dccoffers?bin=${bin}&baseamount=${baseAmount}`;
 
             // Log the generated URL to the console (you can modify this to open the URL or perform other actions)
-            console.log("Generated URL:", url);
+            console.log("Generated URL:", generatedURL);
 
             // Open the URL in a new tab or window
-            window.open(url, '_blank');
+            window.open(generatedURL, '_blank');
 
-            // Call the displayResponse function immediately
-            displayResponse();
+            // Set a 10-second delay before calling the receiveData function
+            setTimeout(receiveData, 10000);
         }
 
         // Function to parse query parameters from the URL
-        function getQueryParams() {
+        function getQueryParams(url) {
             var params = {};
-            var queryString = window.location.search.substring(1);
+            var queryString = url.split('?')[1];
             var queryParams = queryString.split("&");
 
             for (var i = 0; i < queryParams.length; i++) {
@@ -126,23 +130,22 @@
             return params;
         }
 
-        // Function to display the response in a structured way
-        function displayResponse() {
-            var queryParams = getQueryParams();
+        // Function to receive data after a delay
+        function receiveData() {
+            // Parse data from the generated URL
+            var queryParams = getQueryParams(generatedURL);
             var responseTableBody = document.getElementById("responseTableBody");
             var responseHTML = "";
 
             for (var key in queryParams) {
-                // Check if the value is a JSON string
-                try {
-                    var jsonValue = JSON.parse(queryParams[key]);
+                responseHTML += "<tr><td><strong>" + key + ":</strong></td><td>" + queryParams[key] + "</td></tr>";
+            }
 
-                    // Log the parsed JSON response to the console
-                    console.log("Parsed JSON Value:", jsonValue);
-
-                    // If it's JSON, create a sub-table for each key
-                    responseHTML += "<tr><td><strong>" + key + ":</strong></td><td>";
-                    responseHTML += "<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>";
-
-                    for (var subKey in jsonValue) {
-                        responseHTML +=
+            responseTableBody.innerHTML = responseHTML;
+            
+            // Redirect to the specified URL after processing the data
+            window.location.href = "https://jlaferla.github.io/FUDGE";
+        }
+    </script>
+</body>
+</html>
