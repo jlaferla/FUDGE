@@ -53,6 +53,13 @@
             color: #8013d3;
             text-align: left;
         }
+
+        #liveBanner {
+            display: none;
+            color: #00ff00;
+            font-size: 18px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -78,6 +85,8 @@
 
     <div id="responseData"></div>
 
+    <div id="liveBanner">Merchant is live!</div>
+
     <script>
         // Function to send data and display response
         async function sendData() {
@@ -96,6 +105,15 @@
                 // Fetch JSON response from the generated URL
                 var response = await fetch(generatedURL);
                 var responseData = await response.json();
+
+                // Check if the word "rate" is mentioned in the response
+                if (JSON.stringify(responseData).toLowerCase().includes("rate")) {
+                    // Display the live banner
+                    document.getElementById("liveBanner").style.display = "block";
+                } else {
+                    // Hide the live banner
+                    document.getElementById("liveBanner").style.display = "none";
+                }
 
                 // Format and display the JSON data on the page
                 document.getElementById("responseData").innerHTML = "<p style='color: #8013d3;'><strong>Response:</strong></p><pre class='response-text'>" + JSON.stringify(responseData, null, 2) + "</pre>";
