@@ -129,6 +129,8 @@
                     // Display the not setup banner
                     document.getElementById("notSetupBanner").style.display = "block";
                     document.getElementById("liveBanner").style.display = "none";
+                    // Clear the response data if "No Such Merchant" is mentioned
+                    document.getElementById("responseData").innerHTML = "";
                 } else {
                     // Hide both banners if neither condition is met
                     document.getElementById("liveBanner").style.display = "none";
