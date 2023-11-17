@@ -54,17 +54,24 @@
             text-align: left;
         }
 
-        #liveBanner {
+        .response-banner {
             display: none;
-            background-color: #8013d3;
-            color: #08cebe;
             padding: 10px;
             border-radius: 5px;
             margin-top: 10px;
-            font-weight: bold;
             width: 20%;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        #liveBanner {
+            background-color: #8013d3;
+            color: #08cebe;
+        }
+
+        #notSetupBanner {
+            background-color: #8013d3;
+            color: #08cebe;
         }
     </style>
 </head>
@@ -89,7 +96,8 @@
 
     <button type="button" onclick="sendData()">Send</button>
 
-    <div id="liveBanner">Merchant is live!</div>
+    <div id="liveBanner" class="response-banner">Merchant is live!</div>
+    <div id="notSetupBanner" class="response-banner">Merchant is not setup</div>
 
     <div id="responseData"></div>
 
@@ -116,9 +124,15 @@
                 if (JSON.stringify(responseData).toLowerCase().includes("rate")) {
                     // Display the live banner
                     document.getElementById("liveBanner").style.display = "block";
-                } else {
-                    // Hide the live banner
+                    document.getElementById("notSetupBanner").style.display = "none";
+                } else if (JSON.stringify(responseData).toLowerCase().includes("no such merchant")) {
+                    // Display the not setup banner
+                    document.getElementById("notSetupBanner").style.display = "block";
                     document.getElementById("liveBanner").style.display = "none";
+                } else {
+                    // Hide both banners if neither condition is met
+                    document.getElementById("liveBanner").style.display = "none";
+                    document.getElementById("notSetupBanner").style.display = "none";
                 }
 
                 // Format and display the JSON data on the page
