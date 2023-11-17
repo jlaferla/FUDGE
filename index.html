@@ -129,8 +129,6 @@
                     // Display the not setup banner
                     document.getElementById("notSetupBanner").style.display = "block";
                     document.getElementById("liveBanner").style.display = "none";
-                    // Clear the response data if "No Such Merchant" is mentioned
-                    document.getElementById("responseData").innerHTML = "";
                 } else {
                     // Hide both banners if neither condition is met
                     document.getElementById("liveBanner").style.display = "none";
@@ -138,7 +136,13 @@
                 }
 
                 // Format and display the JSON data on the page
-                document.getElementById("responseData").innerHTML = "<p style='color: #8013d3;'><strong>Response:</strong></p><pre class='response-text'>" + JSON.stringify(responseData, null, 2) + "</pre>";
+                var responseContent = JSON.stringify(responseData, null, 2);
+                if (!responseContent.toLowerCase().includes("no such merchant")) {
+                    document.getElementById("responseData").innerHTML = "<p style='color: #8013d3;'><strong>Response:</strong></p><pre class='response-text'>" + responseContent + "</pre>";
+                } else {
+                    // Clear the response data if "No Such Merchant" is found
+                    document.getElementById("responseData").innerHTML = "";
+                }
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
