@@ -149,4 +149,18 @@
                     document.getElementById("notAvailableBanner").style.display = "none";
                 }
 
-                // Format and display the JSON
+                // Format and display the JSON data on the page
+                var responseContent = JSON.stringify(responseData, null, 2);
+                if (!responseContent.toLowerCase().includes("no such merchant") && !responseContent.includes("{}")) {
+                    document.getElementById("responseData").innerHTML = "<p style='color: #8013d3;'><strong>Response:</strong></p><pre class='response-text'>" + responseContent + "</pre>";
+                } else {
+                    // Clear the response data if "No Such Merchant" or "{}" is found
+                    document.getElementById("responseData").innerHTML = "";
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+    </script>
+</body>
+</html>
